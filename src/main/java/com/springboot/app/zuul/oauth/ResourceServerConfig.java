@@ -39,6 +39,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 		.antMatchers(HttpMethod.GET, "/api/recetas/**", "/api/usuarios/usuarios").permitAll()
 		.antMatchers(HttpMethod.GET, "/api/usuarios/usuarios/{id}").hasAnyRole("ADMIN", "USER")
 		.antMatchers("/api/arduino/voltaje/**").permitAll()
+		.antMatchers("/api/aws/s3/**").permitAll()
 		.antMatchers("/api/usuarios/**").hasRole("ADMIN")
 		.antMatchers("/api/recetas/**").hasAnyRole("ADMIN", "USER")
 		.anyRequest().authenticated().and().cors().configurationSource(corsConfigurationSource());
