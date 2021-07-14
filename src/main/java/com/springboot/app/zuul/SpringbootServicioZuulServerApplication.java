@@ -30,7 +30,7 @@ public class SpringbootServicioZuulServerApplication {
 	System.out.println(" INIT - Heroku not idle execution ");
 	RestTemplate restTemplate = new RestTemplate();
 	try {
-		ResponseEntity<String> response = restTemplate.exchange("https://zuul-server-heroku.herokuapp.com/", HttpMethod.GET, null, String.class);
+		ResponseEntity<String> response = restTemplate.exchange(herokuNotIdle_url, HttpMethod.GET, null, String.class);
 		System.out.println(response);
 	}catch (Exception e) {
 		System.out.println(e.getMessage());
