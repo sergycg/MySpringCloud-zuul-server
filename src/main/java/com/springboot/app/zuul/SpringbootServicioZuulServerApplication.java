@@ -5,9 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 @EnableEurekaClient
@@ -28,8 +29,12 @@ public class SpringbootServicioZuulServerApplication {
   public void herokuNotIdle() {
 	System.out.println(" INIT - Heroku not idle execution ");
 	RestTemplate restTemplate = new RestTemplate();
-	ResponseErrorHandler response = restTemplate.getErrorHandler();//exchange("https://zuul-server-heroku.herokuapp.com/", HttpMethod.GET, null, String.class);
-	System.out.println(response);
+	try {
+		ResponseEntity<String> response = restTemplate.exchange("https://zuul-server-heroku.herokuapp.com/", HttpMethod.GET, null, String.class);
+		System.out.println(response);
+	}catch (Exception e) {
+		System.out.println(e.getMessage());
+	}
 	System.out.println(" FINISH - Heroku not idle execution");
   }
 }
